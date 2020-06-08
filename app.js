@@ -29,10 +29,10 @@ var phone1 = new Phone('Pixel', '80150892770');
 var phone2 = new Phone('Pixel', '9791141980');
 
 //overriding phone1 call functionality 
-phone1.call = function(){ return "hello"; }
+phone1.call = function () { return "hello"; };
 
 //creating array
-var arrayOfElements = ['Vignesh', 'Pandian', 2, function(){ return "vignesh";}, call]
+var arrayOfElements = ['Vignesh', 'Pandian', 2, function(){ return "vignesh";}]
 
 //for native functions
 Array.prototype.destroyElement =  function(i) { this.splice(0,i);}
