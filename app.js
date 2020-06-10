@@ -140,7 +140,7 @@ Formula -> (Total no of open brackets - total no of close brackets ) = 0
 */
 
 function validateParanthesis(input) {
-    return input.split('').reduce(function (previous, current) {
+    return !input.split('').reduce(function (previous, current) {
 
         //previous less than 0
         if (previous < 0)
