@@ -106,3 +106,42 @@ var lessThanFifteen = reject(numbers, function(number){
 var lessCapacityServer = servers.find(function(server){
 	return !server.isHighCapacity;
 });
+
+/*Every and Some helper*/
+
+var doesEveryServerIsHighCapacity = servers.every(function(server){
+	return server.isHighCapacity;
+});
+
+var anyServersWithHighCapacity = servers.some(function(server){
+	return server.isHighCapacity;
+});
+
+/*Reduce helper*/
+
+
+/*Solve the parathesis problem 
+Case 1: (()) ->correct
+Case 2: ()() ->correct
+Case 3: )(  -> incorrect
+Case 4: 'vig()' incorrect
+
+
+*/
+
+/*
+( -> +1
+)-> -1
+*/
+
+/*
+Formula -> (Total no of open brackets - total no of close brackets ) = 0
+
+*/
+
+
+
+
+
+
+
