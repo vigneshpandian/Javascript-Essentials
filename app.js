@@ -6,6 +6,7 @@
     let lastName = 'pandian';  //scopped variable
     const notChangable = 1; //scopped variable
 
+   
 
 }
 function TestScope() {
@@ -158,6 +159,100 @@ function validateParanthesis(input) {
 
 
 
+/*Template strings*/
+
+function printMyName(name) {
+    console.log('Hi ' + name + ' welcome to the app!');
+    console.log(`Hi ${name} welcome to the app!`);
+}
+
+/* fat arrow function => */
+
+//main purpose to cut short the function
+
+/*let serverModels = servers.map(function (server) {
+    return server.model + " server is ready to operate";
+});*/
+
+let activeServers = servers.map(server => `${server.model} server is ready to operate`);
+
+let totalRam = servers.reduce((prev, current) => prev + current.ram, 0);
+
+/*another use of fat arrow function*/
+
+//the below will execute however the teamName will undefined eventhough it's in the scope.
+const team = {
+    members: ['Paul', 'Lacey'],
+    teamName: 'Vector',
+    getTeamMembers: function () {
+        return this.members.map(function (member) {
+            return `${member} is member of ${this.teamName}`;
+        });
+    }
+};
+
+//Fixed version
+
+const fixedTeam = {
+    members: ['Paul', 'Lacey'],
+    teamName: 'Vector',
+    getTeamMembers: function () {
+        return this.members.map(member => `${member} is member of ${this.teamName}`);
+    }
+};
+
+//for basic functions
+let doubleUpSalary = function (n) {
+    return n * 2;
+};
+
+//using fat arrow
+let incrementSalary = n => n * 2;
 
 
+/*object literals*/
 
+const offShoreTeam = {
+    members: [
+        { name: 'Vignesh', role: 'Lead Dev' },
+        { name: 'Sathish', role: 'Dev' },
+        { name: 'Elango', role: 'Dev' },
+        { name: 'Ganapragasam', role: 'Dev' },
+        { name: 'Dhinesh', role: 'Dev' },
+        { name: 'Priya', role: 'QA' },
+        { name: 'Muthu', role: 'QA' }
+    ],
+    skills:['.Net', 'Selenium', 'SpecFlow', 'Full Stack QA', 'Full Stack dev']
+};
+
+let formTeam = function (team) {
+    return {
+        team: team,
+        members: team.members,
+        getDevTeam: function () {
+
+            return this.members.filter(n => n.role === 'Dev' || n.role === 'Lead Dev');
+        },
+        getQATeam: function () {
+            return this.members.filter(n => n.role === 'QA');
+        }
+    };
+};
+
+/*
+ * Short vesion using object literals
+
+ */
+let createVectorTeam = function (team) {
+    return {
+        team,
+        members: team.members,
+        getDevTeam() {
+
+            return this.members.filter(n => n.role === 'Dev' || n.role === 'Lead Dev');
+        },
+        getQATeam() {
+            return this.members.filter(n => n.role === 'QA');
+        }
+    };
+};
