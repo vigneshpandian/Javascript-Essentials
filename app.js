@@ -256,3 +256,103 @@ let createVectorTeam = function (team) {
         }
     };
 };
+
+/*Default paramters*/
+
+let add = function (a, b) {
+    if (!a)
+        a = 0;
+    if (!b) {
+        b = 0;
+    }
+
+    return a + b;
+};
+
+let addition = (a = 0, b = 0) => a + b;
+
+/*Rest and spread 
+ * Rest combines all the paramters
+ * Spreads all parameters
+ */
+
+/**
+ * 
+ * To add multiple paramters
+ */
+function multipleParamAdd(...rest) {
+
+    
+    var numbers = rest;
+
+    var result = numbers.reduce((prev, current) => current + prev, 0);
+
+    console.log(result);
+}
+
+
+//Using join 
+
+function joinArrays(array1, array2) {
+    var result = [...array1, ...array2];
+
+    console.log(result);
+}
+
+/*ES6 Destructing*/
+
+const computer = {
+    ram: 32,
+    motherBoard: 'Asus z170K',
+    processor: 'i7',
+    ssdCapacity: '969',
+    
+
+};
+
+let { ram } = computer;
+
+
+
+function assembleComputer( motherBoard, ram, ssdCapacity, processor ) {
+    return `your computer with ram ${ram} gb and processor ${processor} with ssd capacity of ${ssdCapacity} and build on the motherboard ${motherBoard}`;
+}
+
+function makeComputer({ motherBoard, ram, ssdCapacity, processor }) {
+    return `your computer with ram ${ram} gb and processor ${processor} with ssd capacity of ${ssdCapacity} and build on the motherboard ${motherBoard}`;
+}
+
+var x = [1, 2];
+
+let [i, j, k] = x;
+
+
+//Protype class
+
+
+function Computer(parts) {
+    this.ram = parts.ram;
+}
+
+Computer.prototype.process = function () {
+    return "I can process anything";
+};
+
+const pc = new Computer({ ram: 32 });
+
+console.log(pc);
+
+function Dell(parts) {
+    Computer.call(this, parts);
+    this.model = parts.model;
+}
+Dell.prototype = Object.create(Computer.prototype);
+Dell.prototype.constructor = Dell;
+
+Dell.prototype.getModel = function () {
+    return this.model;
+};
+
+
+
+
