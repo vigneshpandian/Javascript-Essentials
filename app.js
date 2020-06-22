@@ -23,7 +23,7 @@ function Phone(name, phoneNumber) {
 //prototype for phone
 Phone.prototype = {
     call: function () { console.log('Calling from phone number ' + this.phoneNumber); }
-}
+};
 
 //phone constructor instatiations
 var phone1 = new Phone('Pixel', '80150892770');
@@ -37,6 +37,12 @@ var arrayOfElements = ['Vignesh', 'Pandian', 2, function () { return "vignesh"; 
 
 //for native functions
 Array.prototype.destroyElement = function (i) { this.splice(0, i); }
+
+/*Exercise: To rename Concat method to Join*/
+Object.prototype.join = function (...rest) {
+    return this.concat(...rest);
+};
+
 
 
 /*Array Helpers*/
@@ -180,11 +186,12 @@ let totalRam = servers.reduce((prev, current) => prev + current.ram, 0);
 
 /*another use of fat arrow function*/
 
-//the below will execute however the teamName will undefined eventhough it's in the scope.
+//the below will execute, however the teamName will undefined eventhough it's in the scope.
 const team = {
     members: ['Paul', 'Lacey'],
     teamName: 'Vector',
     getTeamMembers: function () {
+       
         return this.members.map(function (member) {
             return `${member} is member of ${this.teamName}`;
         });
@@ -210,7 +217,7 @@ let doubleUpSalary = function (n) {
 let incrementSalary = n => n * 2;
 
 
-/*object literals*/
+/*Object literals*/
 
 const offShoreTeam = {
     members: [
@@ -281,7 +288,7 @@ let addition = (a = 0, b = 0) => a + b;
  * To add multiple paramters
  */
 function multipleParamAdd(...rest) {
-
+    
     
     var numbers = rest;
 
@@ -305,10 +312,9 @@ const computer = {
     ram: 32,
     motherBoard: 'Asus z170K',
     processor: 'i7',
-    ssdCapacity: '969',
-    
-
+    ssdCapacity: '969'
 };
+
 
 let { ram } = computer;
 
@@ -322,17 +328,20 @@ function makeComputer({ motherBoard, ram, ssdCapacity, processor }) {
     return `your computer with ram ${ram} gb and processor ${processor} with ssd capacity of ${ssdCapacity} and build on the motherboard ${motherBoard}`;
 }
 
+makeComputer(computer);// calling make compter;
+
 var x = [1, 2];
+
 
 let [i, j, k] = x;
 
 
-//Protype class
-
+//Prototype class
 
 function Computer(parts) {
     this.ram = parts.ram;
 }
+
 
 Computer.prototype.process = function () {
     return "I can process anything";
@@ -343,11 +352,12 @@ const pc = new Computer({ ram: 32 });
 console.log(pc);
 
 function Dell(parts) {
-    Computer.call(this, parts);
+   Computer.call(this, parts); //calling the constructor of the computer class
     this.model = parts.model;
 }
-Dell.prototype = Object.create(Computer.prototype);
-Dell.prototype.constructor = Dell;
+
+Dell.prototype = Object.create(Computer.prototype); //Transfer Computer prototypes to Dell prototype
+Dell.prototype.constructor = Dell; //Dell constructor will be executed first
 
 Dell.prototype.getModel = function () {
     return this.model;
@@ -356,3 +366,165 @@ Dell.prototype.getModel = function () {
 
 
 
+class SuperComputer {
+    #name = "Super Dell"; //private field
+    constructor(parts) {
+        this.ram = parts.ram;
+    }
+
+    process() {
+        return `I (${this.#name}) can process anything`;
+    }
+}
+
+const superPC = new SuperComputer({ ram: 120 });
+
+class Acer extends SuperComputer {
+    constructor(parts){
+        super(parts);
+        this.model = parts.model;
+        
+    }
+
+    getModel() {
+        return `Model no: ${this.model}`;
+    }
+}
+
+const acerPC = new Acer({ model: 'i7', ram: 32 });
+
+/*for of*/
+
+for (let server of servers) {
+    console.log(server);
+}
+
+console.clear();
+
+/* generators
+ * generate something and returns it
+ */
+
+function* sysModels() {
+    const x = yield  'Dell';
+    const y = yield 'Acer';
+
+    return [x, y];
+}
+
+let gen = sysModels(); //immediately it won't execute
+
+console.log(gen.next()); //prints dell
+console.log(gen.next('Orgin')); //prints acer
+console.log(gen.next()); //prints orgin
+console.log(gen.next());  //prints nothing -> done:true
+
+
+//gaming pc collection
+let gamingPCCollection = {
+    StreamingServer: 'Orgin Full tower PC',
+    GamingMachine: 'Dell Alienware',
+    StreamingDevices: ['Audio Transmitter', 'On-Demand']
+};
+
+//pc collection
+let pcCollection = {
+    gamingPCCollection,
+    loadServer: 'Dell',
+    DBServer: 'Acer'
+
+};
+
+let appPC = [];
+
+//gaming iterator
+function* gamingPCIterator(gc) {
+    yield gc.StreamingServer;
+    yield gc.GamingMachine;
+   // yield gc.StreamingDevices;
+}
+
+//pc iterator
+function* pcIterator(pc) {
+    yield pc.loadServer;
+    yield pc.DBServer;
+
+    const iterator = gamingPCIterator(pc.gamingPCCollection);
+
+    yield* iterator;
+
+}
+
+
+/*Using for of we don't need next*/
+for (let value of pcIterator(pcCollection)) {
+    appPC.push(value);
+}
+
+/*symbol iterators
+ *When you are using symbol iterators you don't separte iterator function, we can directly use for of loop
+ * Note: Array helpers won't work in symbol iterators
+ * 
+ */
+
+let gamingStations = {
+    StreamingServer: 'Orgin Full tower PC',
+    GamingMachine: 'Dell Alienware',
+    StreamingDevices: ['Audio Transmitter', 'On-Demand'],
+    [Symbol.iterator]: function* () {
+        yield this.StreamingServer;
+        yield this.GamingMachine;
+        }
+};
+
+//pc collection
+let workStations = {
+    gamingStations,
+    loadServer: 'Dell',
+    DBServer: 'Acer',
+    [Symbol.iterator]: function* () {
+        yield this.loadServer;
+        yield this.DBServer;
+        yield* this.gamingStations;
+        }
+};
+
+
+
+let systems = [];
+
+for (let value of workStations) {
+    systems.push(value);
+}
+
+/*Promises
+ * Unresolved
+ * Resolved -> then
+ * Rejected -> catch
+ * */
+
+/*
+ https://jsonplaceholder.typicode.com/posts
+ */
+
+/*Promise has rejected & resolved*/
+
+let promise = new Promise((accepted, rejected) => {
+    setTimeout(() => {
+accepted(); }, 3000);
+});
+
+promise
+    .then(() => console.log("I'm done"))
+    .catch(() => console.log("failed"));
+
+
+/*fetch*/
+
+let url = "https://jsonplaceholder.typicode.com/posts1";
+
+fetch(url)
+    //.then(r => console.log(r.json()))
+    .then((response) => console.log(response))
+   
+    .catch(response => console.log('Error' + response));
