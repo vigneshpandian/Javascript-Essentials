@@ -1,19 +1,19 @@
-# Javascript-Essentials
-
-Implementation of Prototype and scoped variables
-
-Implementation of Array Helper methods
-
-- foreach
-- map
-- filter
-- reduce
-- every
-- some
-- find
-
-
 ## Features of ES6
+
+- Implementation of Prototype and scoped variables
+
+- Implementation of Array Helper methods
+
+	- foreach
+	- map
+	- filter
+	- reduce
+	- every
+	- some
+	- find
+
+
+
 - Implementation of Template Strings 
 - Implementation of Fat Arrow functions
 - Usage of Object literals
