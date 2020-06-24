@@ -2,12 +2,28 @@
 
 Implementation of Prototype and scoped variables
 
-Implemantation of Array Helper methods
+Implementation of Array Helper methods
 
-1.Foreach
-2.map
-3.filter
-4.reduce
-5.every
-6.some
-7.find
+- foreach
+- map
+- filter
+- reduce
+- every
+- some
+- find
+
+
+## Features of ES6
+- Implementation of Template Strings 
+- Implementation of Fat Arrow functions
+- Usage of Object literals
+- Implementation of Rest and Spread parameters
+- ES6 Destructring
+- Implementation of Classes and extending into subclasess
+- Implementation of Generator functions
+- Implementation of Promises and Fetch
+
+
+
+
+
